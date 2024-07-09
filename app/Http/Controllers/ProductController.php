@@ -13,10 +13,16 @@ class ProductController extends Controller
         'name' => 'required|max:255',
         'description' => 'required',
         'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-
-        
-
-        
        ]);
+
+       if ($request->hasFile('image')) {
+        $imagePath = $request->file('image')->store('products', 'public');
+        $validatedData['image'] = $imagePath;
     }
+
+    Product::create($validatedData);
+
+    return redirect()->route('products.index')->with('success', 'Ürün başarıyla eklendi.');
+}
+       
 }

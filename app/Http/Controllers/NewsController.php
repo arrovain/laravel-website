@@ -22,7 +22,19 @@ class NewsController extends Controller
         'image' =>'required|image|mimes:jpeg,png,jpg,gif|max:2048',
       ]);
 
-        return response()->json(['success' =>  'Haber başarıyla eklendi']);
 
+      if ($request->hasFile('image')) {
+        $imagePath = $request->file('image')->store('news', 'public');
+        $validatedData['image'] = $imagePath;
     }
+
+    News::create($validatedData);
+
+    return redirect()->route('news.index')->with('success', 'Haber başarıyla eklendi.');
+}
+
+
+       
+
+    
 }

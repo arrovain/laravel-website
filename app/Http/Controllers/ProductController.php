@@ -3,16 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Product;
 
 class ProductController extends Controller
 {
     public function store(Request $request)
     { 
-        $product = new Product;
-        $product->name = $request->name;
+       $validatedData = $request->validate([
+        'name' => 'required|max:255',
+        'description' => 'required',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+
         
-        $product->save();
+
         
-        return response()->json(['success' => 'Ürün başarıyla eklendi']);
+       ]);
     }
 }

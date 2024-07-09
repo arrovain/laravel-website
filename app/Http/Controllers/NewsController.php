@@ -7,6 +7,13 @@ use App\Models\News;
 
 class NewsController extends Controller
 {
+
+
+    public function index()
+    {
+        $news = News::all();
+        return view('news.index', compact('news'));
+    }
     public function store(Request $request){
 
         $news = new News;

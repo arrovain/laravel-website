@@ -16,10 +16,11 @@ class NewsController extends Controller
     }
     public function store(Request $request){
 
-        $news = new News;
-        $news->title = $request->title;
-        $news->content = $request->content;
-        $news->save();
+      $validateData = $request->validate([
+        'title' => 'required|max:255',
+        'content' =>'required',
+        'image' =>'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+      ]);
 
         return response()->json(['success' =>  'Haber başarıyla eklendi']);
 

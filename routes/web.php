@@ -15,8 +15,8 @@ Route::get('/products', [ProductController::class, 'index'])->name('products.ind
 Route::get('/news', [NewsController::class, 'index'])->name('news.index');(
 
 Route::prefix('admin')->middleware(['auth'])->group(function () {
-    Route::get('/') [AdminController::class, 'index'])->name('admin.dashboard');
-
+    Route::get('/' [AdminController::class, 'index')]->name('admin.dashboard');
+   Route::get('/products' [AdminController:class, 'products')]->name('admin.producst');
 })
 
 

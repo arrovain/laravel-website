@@ -12,11 +12,19 @@ Route::get('/', function () {
 });
 
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-Route::get('/news', [NewsController::class, 'index'])->name('news.index');
+Route::get('/news', [NewsController::class, 'index'])->name('news.index');(
+
+Route::prefix('admin')->middleware(['auth'])->group(function () {
+    
+})
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

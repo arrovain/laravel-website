@@ -1,7 +1,10 @@
-import './bootstrap';
+require('./bootstrap');
 
-import Alpine from 'alpinejs';
+window.Vue = require('vue').default;
 
-window.Alpine = Alpine;
+Vue.component('product-manager', require('./components/ProductManager.vue').default);
+Vue.component('news-manager', require('./components/NewsManager.vue').default);
 
-Alpine.start();
+const app = new Vue({
+    el: '#app',
+});

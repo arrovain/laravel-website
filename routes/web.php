@@ -12,15 +12,15 @@ Route::get('/', function () {
 });
 
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-Route::get('/news', [NewsController::class, 'index'])->name('news.index');(
+Route::get('/news', [NewsController::class, 'index'])->name('news.index');
 
 Route::prefix('admin')->middleware(['auth'])->group(function () {
-    Route::get('/' [AdminController::class, 'index')]->name('admin.dashboard');
-   Route::get('/products' [AdminController:class, 'products')]->name('admin.producst');
-   Route::get('news', [AdminController::class, 'news']->name('admin.news'))
+    Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
+   Route::get('/products', [AdminController::class, 'products'])->name('admin.products');
+   Route::get('news', [AdminController::class, 'news'])->name('admin.news');
 });
 
-
+Auth::routes();
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -33,8 +33,5 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
-
-require __DIR__.'/auth.php';
 
 

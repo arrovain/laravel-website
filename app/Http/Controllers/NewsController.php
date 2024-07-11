@@ -11,12 +11,12 @@ class NewsController extends Controller
 
     public function index()
     {
-        $news = News::all();
-        return view('news.index', compact('news'));
+        $news = News::latest()->take(3)->get();
+        return view('home', compact('news'));
     }
     public function store(Request $request){
 
-      $validateData = $request->validate([
+      $validated = $request->validate([
         'title' => 'required|max:255',
         'content' =>'required',
         'image' =>'required|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -25,12 +25,12 @@ class NewsController extends Controller
 
       if ($request->hasFile('image')) {
         $imagePath = $request->file('image')->store('news', 'public');
-        $validatedData['image'] = $imagePath;
+        $validated['image'] = $imagePath;
     }
 
-    News::create($validatedData);
+    News::create($validated);
 
-    return redirect()->route('news.index')->with('success', 'Haber başarıyla eklendi.');
+    return redirect()->route('admin.news.index')->with('success', 'Haber başarıyla eklendi.');
 }
 
 

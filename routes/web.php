@@ -20,7 +20,7 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
    Route::get('news', [AdminController::class, 'news'])->name('admin.news');
 });
 
-Auth::routes();
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
